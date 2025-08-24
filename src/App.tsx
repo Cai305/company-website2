@@ -60,8 +60,7 @@ function App() {
             posted: item.postedDate,
             category: 'General',
             experience: item.experienceLevel,
-
-
+        }));
 
         
         setJobs(transformedJobs);

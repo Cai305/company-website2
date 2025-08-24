@@ -6,9 +6,21 @@ interface JobModalProps {
   job: Job | null;
   isOpen: boolean;
   onClose: () => void;
+  onApply: (jobId: string) => void;
+  onSave: (jobId: string) => void;
+  isJobSaved: boolean;
+  isJobApplied: boolean;
 }
 
-export const JobModal: React.FC<JobModalProps> = ({ job, isOpen, onClose }) => {
+export const JobModal: React.FC<JobModalProps> = ({ 
+  job, 
+  isOpen, 
+  onClose, 
+  onApply, 
+  onSave, 
+  isJobSaved, 
+  isJobApplied 
+}) => {
   if (!isOpen || !job) return null;
 
   const getTypeColor = (type: string) => {
@@ -107,11 +119,26 @@ export const JobModal: React.FC<JobModalProps> = ({ job, isOpen, onClose }) => {
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <button className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium">
-              Apply Now
+            <button 
+              onClick={() => onApply(job.id)}
+              disabled={isJobApplied}
+              className={`flex-1 py-3 px-6 rounded-lg transition-colors duration-200 font-medium ${
+                isJobApplied 
+                  ? 'bg-green-600 text-white cursor-not-allowed' 
+                  : 'bg-blue-600 text-white hover:bg-blue-700'
+              }`}
+            >
+              {isJobApplied ? 'Applied ✓' : 'Apply Now'}
             </button>
-            <button className="flex-1 border border-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-50 transition-colors duration-200 font-medium">
-              Save Job
+            <button 
+              onClick={() => onSave(job.id)}
+              className={`flex-1 border py-3 px-6 rounded-lg transition-colors duration-200 font-medium ${
+                isJobSaved
+                  ? 'border-blue-500 bg-blue-50 text-blue-700 hover:bg-blue-100'
+                  : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              {isJobSaved ? 'Saved ❤️' : 'Save Job'}
             </button>
           </div>
         </div>

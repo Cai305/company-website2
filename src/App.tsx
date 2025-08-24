@@ -15,6 +15,8 @@ function App() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [savedJobs, setSavedJobs] = useState<Set<string>>(new Set());
+  const [appliedJobs, setAppliedJobs] = useState<Set<string>>(new Set());
 
   const API_URL = "https://shop-x0zr.onrender.com/";
   const JOBS_ENDPOINT = "api/jobs";
@@ -105,6 +107,24 @@ function App() {
     setSelectedJob(null);
   };
 
+  const handleApplyJob = (jobId: string) => {
+    setAppliedJobs(prev => new Set([...prev, jobId]));
+    // Here you could also make an API call to submit the application
+    alert('Application submitted successfully!');
+  };
+
+  const handleSaveJob = (jobId: string) => {
+    setSavedJobs(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(jobId)) {
+        newSet.delete(jobId);
+      } else {
+        newSet.add(jobId);
+      }
+      return newSet;
+    });
+  };
+
   // Get unique companies for filter dropdown
   const companies = useMemo(() => {
     return [...new Set(jobs.map(job => job.company))].sort();
@@ -183,6 +203,10 @@ function App() {
         job={selectedJob}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
+        onApply={handleApplyJob}
+        onSave={handleSaveJob}
+        isJobSaved={selectedJob ? savedJobs.has(selectedJob.id) : false}
+        isJobApplied={selectedJob ? appliedJobs.has(selectedJob.id) : false}
       />
     </div>
   );

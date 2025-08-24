@@ -55,8 +55,16 @@ function App() {
             type: item.type,
             salary: item.salary,
             description: item.description,
-            requirements: item.requirements || [],
-            benefits: item.benefits || [],
+            requirements: Array.isArray(item.requirements) 
+              ? item.requirements 
+              : typeof item.requirements === 'string' 
+                ? item.requirements.split(',').map(req => req.trim())
+                : [],
+            benefits: Array.isArray(item.benefits) 
+              ? item.benefits 
+              : typeof item.benefits === 'string' 
+                ? item.benefits.split(',').map(benefit => benefit.trim())
+                : [],
             posted: item.postedDate,
             category: 'General',
             experience: item.experienceLevel,

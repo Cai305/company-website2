@@ -31,9 +31,9 @@ export type RawJob = {
   type: string;
   salary: string;
   description: string;
-  requirements: string;
+  requirements: string[];
   postedDate: string;
   experienceLevel: string;
-  benefits: string;
+  benefits: string[];
 };
 

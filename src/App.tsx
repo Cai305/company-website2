@@ -55,23 +55,11 @@ function App() {
             type: item.type,
             salary: item.salary,
             description: item.description,
-            requirements:  ['5+ years React experience', 'TypeScript proficiency', 'Modern CSS frameworks', 'Git version control'],
-            responsibilities: ['Health insurance', 'Flexible working hours', 'Professional development budget', 'Remote work options'],
+            requirements: item.requirements ? item.requirements.split(',').map(req => req.trim()) : [],
+            benefits: item.benefits ? item.benefits.split(',').map(benefit => benefit.trim()) : [],
             posted: item.postedDate,
-            applicationDeadline: item.applicationDeadline,
-            contactEmail: item.contactEmail,
-            applicationLink: item.applicationLink,
-            experienceLevel: item.experienceLevel,
-            remote: item.remote,
-            benefits: item.benefits,
-            tags: item.tags,
-
-            // 🔽 Add required fields with defaults
-            
-           
             category: 'General',
             experience: item.experienceLevel,
-}));
 
 
 

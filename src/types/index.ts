@@ -37,3 +37,23 @@ export type RawJob = {
   benefits: string[];
 };
 
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  jwt: string;
+}
+
+export interface AuthResponse {
+  jwt: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    provider: string;
+    confirmed: boolean;
+    blocked: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
